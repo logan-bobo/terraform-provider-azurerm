@@ -140,7 +140,7 @@ A `application_logs` block supports the following:
 
 * `azure_blob_storage` - (Optional) An `azure_blob_storage` block as defined below.
 
-* `file_system_level` - (Required) Log level. Possible values include: `Verbose`, `Information`, `Warning`, and `Error`.
+* `file_system_level` - (Required) Log level. Possible values include: `Off`, `Verbose`, `Information`, `Warning`, and `Error`.
 
 ---
 
@@ -189,7 +189,7 @@ ASP.NET V4.8 | v4.0
 
 ~> **NOTE:** For currently supported versions, please see the official documentation. Some example values include: `1.8`, `1.8.0_322`,  `11`, `11.0.14`, `17` and `17.0.2`
 
-* `node_version` - (Optional) The version of node to use when `current_stack` is set to `node`. Possible values are `~12`, `~14`, `~16`, and `~18`.
+* `node_version` - (Optional) The version of node to use when `current_stack` is set to `node`. Possible values are `~12`, `~14`, `~16`, `~18` and `~20`.
 
 ~> **NOTE:** This property conflicts with `java_version`.
 
@@ -583,7 +583,7 @@ A `headers` block supports the following:
 
 A `http_logs` block supports the following:
 
-* `azure_blob_storage` - (Optional) A `azure_blob_storage_http` block as defined above.
+* `azure_blob_storage` - (Optional) A `azure_blob_storage_http` block as defined below.
 
 * `file_system` - (Optional) A `file_system` block as defined above.
 
@@ -624,6 +624,8 @@ A `ip_restriction` block supports the following:
 * `virtual_network_subnet_id` - (Optional) The Virtual Network Subnet ID used for this IP Restriction.
 
 ~> **NOTE:** One and only one of `ip_address`, `service_tag` or `virtual_network_subnet_id` must be specified.
+
+* `description` - (Optional) The Description of this IP Restriction.
 
 ---
 
@@ -693,6 +695,7 @@ A `scm_ip_restriction` block supports the following:
 
 ~> **NOTE:** One and only one of `ip_address`, `service_tag` or `virtual_network_subnet_id` must be specified.
 
+* `description` - (Optional) The Description of this IP Restriction.
 ---
 
 A `site_config` block supports the following:
@@ -733,6 +736,8 @@ A `site_config` block supports the following:
 
 * `ip_restriction` - (Optional) One or more `ip_restriction` blocks as defined above.
 
+* `ip_restriction_default_action` - (Optional) The Default action for traffic that does not match any `ip_restriction` rule. possible values include `Allow` and `Deny`. Defaults to `Allow`.
+
 * `load_balancing_mode` - (Optional) The Site load balancing. Possible values include: `WeightedRoundRobin`, `LeastRequests`, `LeastResponseTime`, `WeightedTotalTraffic`, `RequestHash`, `PerSiteRoundRobin`. Defaults to `LeastRequests` if omitted.
 
 * `local_mysql_enabled` - (Optional) Use Local MySQL. Defaults to `false`.
@@ -747,11 +752,15 @@ A `site_config` block supports the following:
 
 * `scm_ip_restriction` - (Optional) One or more `scm_ip_restriction` blocks as defined above.
 
+* `scm_ip_restriction_default_action` - (Optional) The Default action for traffic that does not match any `scm_ip_restriction` rule. possible values include `Allow` and `Deny`. Defaults to `Allow`.
+
 * `scm_minimum_tls_version` - (Optional) The configures the minimum version of TLS required for SSL requests to the SCM site Possible values include: `1.0`, `1.1`, and `1.2`. Defaults to `1.2`.
 
 * `scm_use_main_ip_restriction` - (Optional) Should the Windows Web App `ip_restriction` configuration be used for the SCM also.
 
 * `use_32_bit_worker` - (Optional) Should the Windows Web App use a 32-bit worker. Defaults to `true`.
+
+* `handler_mapping` - (Optional) One or more `handler_mapping` blocks as defined below.
 
 * `virtual_application` - (Optional) One or more `virtual_application` blocks as defined below.
 
@@ -834,6 +843,16 @@ A `twitter` block supports the following:
 * `consumer_secret` - (Optional) The OAuth 1.0a consumer secret of the Twitter application used for sign-in. Cannot be specified with `consumer_secret_setting_name`.
   
 * `consumer_secret_setting_name` - (Optional) The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in. Cannot be specified with `consumer_secret`.
+
+---
+
+A `handler_mapping` block supports the following:
+
+* `extension` - (Required) Specifies which extension to be handled by the specified FastCGI application.
+
+* `script_processor_path` - (Required) Specifies the absolute path to the FastCGI application.
+
+* `arguments` - (Optional) Specifies the command-line arguments to be passed to the script processor.
 
 ---
 

@@ -293,7 +293,7 @@ A `custom_oidc_v2` block supports the following:
 
 * `client_id` - The ID of the Client to use to authenticate with the Custom OIDC.
 
-* `openid_configuration_endpoint` - The app setting name that contains the `client_secret` value used for the Custom OIDC Login.
+* `openid_configuration_endpoint`- The endpoint used for OpenID Connect Discovery. For example `https://example.com/.well-known/openid-configuration`.
 
 * `name_claim_type` - The name of the claim that contains the users name.
 
@@ -599,6 +599,8 @@ A `site_config` block exports the following:
 
 * `ip_restriction` - A `ip_restriction` block as defined above.
 
+* `ip_restriction_default_action` - The Default action for traffic that does not match any `ip_restriction` rule.
+
 * `load_balancing_mode` - The site Load Balancing Mode.
 
 * `local_mysql_enabled` - Is the Local MySQL enabled.
@@ -613,6 +615,8 @@ A `site_config` block exports the following:
 
 * `scm_ip_restriction` - A `scm_ip_restriction` block as defined above.
 
+* `scm_ip_restriction_default_action` - The Default action for traffic that does not match any `scm_ip_restriction` rule.
+
 * `scm_minimum_tls_version` - The Minimum version of TLS for requests to SCM.
 
 * `scm_type` - The Source Control Management Type in use.
@@ -620,6 +624,8 @@ A `site_config` block exports the following:
 * `scm_use_main_ip_restriction` - Is the Windows Web App `ip_restriction` configuration used for the SCM also.
 
 * `use_32_bit_worker` - Does the Windows Web App use a 32-bit worker.
+
+* `handler_mapping` - A `handler_mapping` block as defined below.
 
 * `virtual_application` - A `virtual_application` block as defined below.
 
@@ -712,6 +718,16 @@ A `twitter` block exports the following:
 * `consumer_secret` - The OAuth 1.0a consumer secret of the Twitter application used for sign-in.
 
 * `consumer_secret_setting_name` - The app setting name that contains the OAuth 1.0a consumer secret of the Twitter application used for sign-in.
+
+---
+
+A `handler_mapping` block supports the following:
+
+* `extension` - The extension to be handled by the specified FastCGI application.
+
+* `script_processor_path` - The absolute path to the FastCGI application.
+
+* `arguments` - The command-line arguments to be passed to the script processor.
 
 ---
 
